@@ -7,7 +7,7 @@
   <meta name="description" content="Farias Labs diseña automatizaciones, asistentes con IA, integraciones y soluciones digitales para empresas que quieren operar mejor y captar más clientes." />
   <meta name="theme-color" content="#07111f" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://formsubmit.co; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests; block-all-mixed-content" />
   <link rel="canonical" href="https://fariaslabs.cl/" />
   <meta property="og:title" content="Farias Labs | Ingeniería, automatización e IA aplicada" />
   <meta property="og:description" content="Transformamos procesos manuales en sistemas medibles, automatizados y preparados para escalar." />
@@ -262,8 +262,11 @@
             <div class="form-header">
               <span class="form-badge">Nuevo diagnóstico</span>
               <h3>Empecemos por el problema real</h3>
-              <p>El formulario prepara un correo listo para enviar. No guarda datos en servidores.</p>
+              <p>El formulario envía la solicitud directo a Farias Labs. Sin abrir el correo del cliente.</p>
             </div>
+            <input type="hidden" name="_subject" value="Nuevo diagnóstico desde fariaslabs.cl" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hp-field" aria-hidden="true" />
             <div class="form-row two-cols">
               <div>
                 <label for="name">Nombre</label>
@@ -307,7 +310,7 @@
               <textarea id="message" name="message" rows="5" placeholder="Ej: Tenemos muchas tareas manuales en ventas/reportes/atención y queremos automatizar..." required></textarea>
             </div>
             <button class="btn primary form-submit" type="submit">Enviar diagnóstico</button>
-            <p class="form-note" id="form-note">Se abrirá tu cliente de correo con el mensaje preparado para enviar.</p>
+            <p class="form-note" id="form-note" role="status" aria-live="polite">Al enviar, recibiremos tu solicitud en contacto@fariaslabs.cl.</p>
           </form>
         </div>
 

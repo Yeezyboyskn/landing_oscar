@@ -174,7 +174,11 @@ h3 { font-size: 1.24rem; letter-spacing: -0.028em; margin-bottom: 10px; }
 .lead-form input:focus, .lead-form select:focus, .lead-form textarea:focus { border-color: rgba(67,230,175,0.72); background: rgba(255,255,255,0.075); box-shadow: 0 0 0 4px rgba(67,230,175,0.10); }
 .lead-form select option { color: #06101d; }
 .form-submit { border: 0; cursor: pointer; width: 100%; margin-top: 2px; }
+.form-submit:disabled { cursor: progress; opacity: 0.72; transform: none; }
 .form-note { color: var(--muted-2); font-size: 0.84rem; line-height: 1.45; margin: -4px 0 0; text-align: center; }
+.form-note.success { color: var(--brand); }
+.form-note.error { color: #ffb4b4; }
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
 .footer { display: flex; justify-content: space-between; gap: 20px; color: var(--muted); padding: 34px 0 50px; border-top: 1px solid var(--line); }
 .footer a { color: var(--brand); }
