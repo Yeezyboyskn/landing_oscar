@@ -102,3 +102,9 @@ CLOUDFLARE_ACCOUNT_ID=***
 ```
 
 El token debe tener permisos para desplegar Cloudflare Pages en el proyecto `fariaslabs`.
+
+### Repositorio privado
+
+El repositorio puede mantenerse privado sin afectar la publicación pública de `https://fariaslabs.cl`.
+
+Mientras los secrets `CLOUDFLARE_API_TOKEN` y `CLOUDFLARE_ACCOUNT_ID` existan en GitHub Actions, el workflow puede seguir desplegando automáticamente a Cloudflare Pages en cada push a `main`. La privacidad del repositorio solo limita quién puede ver el código fuente en GitHub; no cambia la visibilidad del sitio publicado.
