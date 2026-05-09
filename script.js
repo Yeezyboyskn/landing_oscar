@@ -3,7 +3,7 @@ const navLinks = document.querySelector('.nav-links');
 const year = document.querySelector('#year');
 const leadForm = document.querySelector('#lead-form');
 const formNote = document.querySelector('#form-note');
-const formSubmitEndpoint = 'https://formsubmit.co/ajax/contacto@fariaslabs.cl';
+const contactEndpoint = '/api/contact';
 
 year.textContent = new Date().getFullYear();
 
@@ -33,15 +33,14 @@ leadForm?.addEventListener('submit', async (event) => {
   const data = new FormData(leadForm);
 
   const payload = {
-    _subject: 'Nuevo diagnóstico desde fariaslabs.cl',
-    _template: 'table',
-    nombre: data.get('name')?.toString().trim(),
-    correo: data.get('email')?.toString().trim(),
-    empresa_proyecto: data.get('company')?.toString().trim() || 'No indicado',
-    necesidad: data.get('service')?.toString().trim(),
-    urgencia: data.get('urgency')?.toString().trim(),
-    mensaje: data.get('message')?.toString().trim(),
-    origen: 'https://fariaslabs.cl'
+    name: data.get('name')?.toString().trim(),
+    email: data.get('email')?.toString().trim(),
+    company: data.get('company')?.toString().trim(),
+    service: data.get('service')?.toString().trim(),
+    urgency: data.get('urgency')?.toString().trim(),
+    message: data.get('message')?.toString().trim(),
+    source: window.location.href,
+    _honey: data.get('_honey')?.toString().trim()
   };
 
   try {
@@ -49,7 +48,7 @@ leadForm?.addEventListener('submit', async (event) => {
     submitButton.textContent = 'Enviando...';
     setFormState(null, 'Enviando solicitud a Farias Labs...');
 
-    const response = await fetch(formSubmitEndpoint, {
+    const response = await fetch(contactEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -58,15 +57,17 @@ leadForm?.addEventListener('submit', async (event) => {
       body: JSON.stringify(payload)
     });
 
-    if (!response.ok) {
-      throw new Error(`Error HTTP ${response.status}`);
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok || result.ok === false) {
+      throw new Error(result.error || `Error HTTP ${response.status}`);
     }
 
     leadForm.reset();
     setFormState('success', 'Solicitud enviada. Gracias: Farias Labs recibió tu diagnóstico inicial.');
   } catch (error) {
     console.error('No se pudo enviar el formulario', error);
-    setFormState('error', 'No se pudo enviar automáticamente. Escríbenos a contacto@fariaslabs.cl e intentaremos responder rápido.');
+    setFormState('error', error.message || 'No se pudo enviar automáticamente. Escríbenos a contacto@fariaslabs.cl.');
   } finally {
     submitButton.disabled = false;
     submitButton.textContent = 'Enviar diagnóstico';

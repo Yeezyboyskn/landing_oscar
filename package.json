@@ -1,0 +1,14 @@
+{
+  "name": "fariaslabs-landing",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler pages dev . --compatibility-date=2026-05-09",
+    "check": "node --check script.js && node --check functions/api/contact.js",
+    "scan:security": "grep -RIn --exclude-dir=.git --exclude-dir=node_modules -E 'http://|ws://|localhost|127\\.0\\.0\\.1' . || true"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
