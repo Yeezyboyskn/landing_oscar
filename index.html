@@ -243,19 +243,67 @@
     </section>
 
     <section class="section cta-section" id="contacto">
-      <div class="container cta-box">
-        <div>
-          <p class="eyebrow">Primer paso</p>
-          <h2>Agenda un diagnóstico y encontremos una automatización rentable.</h2>
+      <div class="container cta-box contact-box">
+        <div class="contact-copy">
+          <p class="eyebrow">Diagnóstico inicial</p>
+          <h2>Cuéntanos qué quieres mejorar y te respondemos con una primera mirada técnica.</h2>
           <p>
-            Cuéntanos qué proceso consume tiempo, dónde se pierden datos o qué parte del negocio debería funcionar mejor.
-            Te respondemos con una primera mirada técnica y próximos pasos.
+            Completa este formulario rápido. Se abrirá tu correo con el mensaje listo para enviar a Farias Labs.
+            Así partimos ordenados, con contexto y sin fricción.
           </p>
+          <ul class="contact-promises">
+            <li>Respuesta orientada a próximos pasos concretos.</li>
+            <li>Priorización de automatizaciones con impacto rápido.</li>
+            <li>Enfoque técnico, seguro y aterrizado al negocio.</li>
+          </ul>
         </div>
-        <div class="contact-actions">
-          <a class="btn primary" href="mailto:contacto@fariaslabs.cl?subject=Diagnóstico%20Farias%20Labs&body=Hola%20Farias%20Labs,%0A%0AQuiero%20evaluar%20una%20solución%20para:%0A%0A1.%20Problema%20actual:%0A2.%20Herramientas%20que%20uso:%0A3.%20Objetivo%20ideal:%0A4.%20Urgencia:%0A">Escribir a contacto@fariaslabs.cl</a>
-          <a class="btn secondary" href="https://www.linkedin.com/in/oscar-alejandro-farias-baeza-yzkn3922" target="_blank" rel="noopener">Conectar por LinkedIn</a>
-        </div>
+
+        <form class="lead-form" id="lead-form">
+          <div class="form-row">
+            <label for="name">Nombre</label>
+            <input id="name" name="name" type="text" autocomplete="name" placeholder="Tu nombre" required />
+          </div>
+          <div class="form-row two-cols">
+            <div>
+              <label for="email">Correo</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="tu@empresa.com" required />
+            </div>
+            <div>
+              <label for="company">Empresa o proyecto</label>
+              <input id="company" name="company" type="text" autocomplete="organization" placeholder="Nombre de empresa" />
+            </div>
+          </div>
+          <div class="form-row two-cols">
+            <div>
+              <label for="service">Qué necesitas</label>
+              <select id="service" name="service" required>
+                <option value="">Selecciona una opción</option>
+                <option>Automatizar un proceso</option>
+                <option>Crear un asistente con IA</option>
+                <option>Integrar herramientas o plataformas</option>
+                <option>Mejorar captación de clientes</option>
+                <option>Crear software o dashboard</option>
+                <option>No estoy seguro, necesito diagnóstico</option>
+              </select>
+            </div>
+            <div>
+              <label for="urgency">Urgencia</label>
+              <select id="urgency" name="urgency" required>
+                <option value="">Selecciona</option>
+                <option>Esta semana</option>
+                <option>Este mes</option>
+                <option>Próximos 3 meses</option>
+                <option>Solo estoy evaluando</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="message">Describe el problema u oportunidad</label>
+            <textarea id="message" name="message" rows="5" placeholder="Ej: Tenemos muchas tareas manuales en ventas/reportes/atención y queremos automatizar..." required></textarea>
+          </div>
+          <button class="btn primary form-submit" type="submit">Enviar diagnóstico</button>
+          <p class="form-note" id="form-note">El formulario no guarda datos en servidores; prepara un correo para que lo envíes directamente.</p>
+        </form>
       </div>
     </section>
   </main>
