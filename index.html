@@ -244,66 +244,72 @@
 
     <section class="section contact-section" id="contacto">
       <div class="container contact-layout">
-        <div class="contact-copy section-heading compact">
-          <p class="eyebrow">Diagnóstico inicial</p>
-          <h2>Cuéntanos qué quieres mejorar y te respondemos con una primera mirada técnica.</h2>
-          <p>
-            Completa este formulario rápido. Se abrirá tu correo con el mensaje listo para enviar a Farias Labs.
-            Así partimos ordenados, con contexto y sin fricción.
-          </p>
-        </div>
-
-        <form class="lead-form" id="lead-form">
-          <div class="form-header">
-            <span class="form-badge">Nuevo diagnóstico</span>
-            <h3>Empecemos por el problema real</h3>
-            <p>Mientras más claro sea el contexto, mejor será la propuesta inicial.</p>
-          </div>
-          <div class="form-row">
-            <label for="name">Nombre</label>
-            <input id="name" name="name" type="text" autocomplete="name" placeholder="Tu nombre" required />
-          </div>
-          <div class="form-row two-cols">
-            <div>
-              <label for="email">Correo</label>
-              <input id="email" name="email" type="email" autocomplete="email" placeholder="tu@empresa.com" required />
+        <div class="contact-card">
+          <div class="contact-copy">
+            <p class="eyebrow">Diagnóstico inicial</p>
+            <h2>Cuéntanos qué quieres mejorar.</h2>
+            <p>
+              Recibimos el contexto, ordenamos el problema y respondemos con una primera mirada técnica:
+              oportunidades, riesgos y próximos pasos concretos.
+            </p>
+            <div class="contact-direct">
+              <span>Contacto directo</span>
+              <a href="mailto:contacto@fariaslabs.cl">contacto@fariaslabs.cl</a>
             </div>
-            <div>
+          </div>
+
+          <form class="lead-form" id="lead-form">
+            <div class="form-header">
+              <span class="form-badge">Nuevo diagnóstico</span>
+              <h3>Empecemos por el problema real</h3>
+              <p>El formulario prepara un correo listo para enviar. No guarda datos en servidores.</p>
+            </div>
+            <div class="form-row two-cols">
+              <div>
+                <label for="name">Nombre</label>
+                <input id="name" name="name" type="text" autocomplete="name" placeholder="Tu nombre" required />
+              </div>
+              <div>
+                <label for="email">Correo</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="tu@empresa.com" required />
+              </div>
+            </div>
+            <div class="form-row">
               <label for="company">Empresa o proyecto</label>
               <input id="company" name="company" type="text" autocomplete="organization" placeholder="Nombre de empresa" />
             </div>
-          </div>
-          <div class="form-row two-cols">
-            <div>
-              <label for="service">Qué necesitas</label>
-              <select id="service" name="service" required>
-                <option value="">Selecciona una opción</option>
-                <option>Automatizar un proceso</option>
-                <option>Crear un asistente con IA</option>
-                <option>Integrar herramientas o plataformas</option>
-                <option>Mejorar captación de clientes</option>
-                <option>Crear software o dashboard</option>
-                <option>No estoy seguro, necesito diagnóstico</option>
-              </select>
+            <div class="form-row two-cols">
+              <div>
+                <label for="service">Qué necesitas</label>
+                <select id="service" name="service" required>
+                  <option value="">Selecciona una opción</option>
+                  <option>Automatizar un proceso</option>
+                  <option>Crear un asistente con IA</option>
+                  <option>Integrar herramientas o plataformas</option>
+                  <option>Mejorar captación de clientes</option>
+                  <option>Crear software o dashboard</option>
+                  <option>No estoy seguro, necesito diagnóstico</option>
+                </select>
+              </div>
+              <div>
+                <label for="urgency">Urgencia</label>
+                <select id="urgency" name="urgency" required>
+                  <option value="">Selecciona</option>
+                  <option>Esta semana</option>
+                  <option>Este mes</option>
+                  <option>Próximos 3 meses</option>
+                  <option>Solo estoy evaluando</option>
+                </select>
+              </div>
             </div>
-            <div>
-              <label for="urgency">Urgencia</label>
-              <select id="urgency" name="urgency" required>
-                <option value="">Selecciona</option>
-                <option>Esta semana</option>
-                <option>Este mes</option>
-                <option>Próximos 3 meses</option>
-                <option>Solo estoy evaluando</option>
-              </select>
+            <div class="form-row">
+              <label for="message">Describe el problema u oportunidad</label>
+              <textarea id="message" name="message" rows="5" placeholder="Ej: Tenemos muchas tareas manuales en ventas/reportes/atención y queremos automatizar..." required></textarea>
             </div>
-          </div>
-          <div class="form-row">
-            <label for="message">Describe el problema u oportunidad</label>
-            <textarea id="message" name="message" rows="5" placeholder="Ej: Tenemos muchas tareas manuales en ventas/reportes/atención y queremos automatizar..." required></textarea>
-          </div>
-          <button class="btn primary form-submit" type="submit">Enviar diagnóstico</button>
-          <p class="form-note" id="form-note">El formulario no guarda datos en servidores; prepara un correo para que lo envíes directamente.</p>
-        </form>
+            <button class="btn primary form-submit" type="submit">Enviar diagnóstico</button>
+            <p class="form-note" id="form-note">Se abrirá tu cliente de correo con el mensaje preparado para enviar.</p>
+          </form>
+        </div>
 
         <div class="contact-promises">
           <article>
