@@ -133,6 +133,8 @@ h3 { font-size: 1.24rem; letter-spacing: -0.028em; margin-bottom: 10px; }
 .stack-layout { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 42px; align-items: center; }
 .stack-tags { display: flex; flex-wrap: wrap; gap: 11px; }
 .stack-tags span:nth-child(3n) { color: var(--text); border-color: rgba(67,230,175,0.34); }
+.capability-tags span { font-size: 0.96rem; padding: 11px 15px; }
+.capability-tags span:nth-child(odd) { color: var(--text); border-color: rgba(67,230,175,0.30); background: rgba(67,230,175,0.075); }
 
 .founder { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 20px; }
 .founder-card, .quote-card { padding: 35px; }
