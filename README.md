@@ -7,9 +7,30 @@ Landing page oficial de Farias Labs con formulario de leads y backend serverless
 - Frontend estático: HTML/CSS/JS.
 - Backend: Cloudflare Pages Functions.
 - Endpoint de contacto: `POST /api/contact`.
-- Envío de leads:
-  - Recomendado: Resend (`RESEND_API_KEY`).
-  - Alternativo: webhook (`LEADS_WEBHOOK_URL`).
+- Deploy actual: Cloudflare Pages project `fariaslabs`.
+- Dominio principal: `https://fariaslabs.cl`.
+- Redirección: `www.fariaslabs.cl` → `fariaslabs.cl`.
+
+## Estado actual
+
+El frontend y la API ya están desplegados en Cloudflare Pages.
+
+Verificación:
+
+```bash
+curl -i https://fariaslabs.cl/api/contact
+```
+
+Debe responder:
+
+```json
+{ "ok": true, "service": "Farias Labs contact API" }
+```
+
+Para que el formulario envíe correos reales falta configurar un proveedor de salida:
+
+- Recomendado: Resend (`RESEND_API_KEY`).
+- Alternativo: webhook (`LEADS_WEBHOOK_URL`).
 
 ## Desarrollo local
 
@@ -29,7 +50,7 @@ No commitear `.dev.vars`, `.env` ni secretos.
 
 ## Variables de entorno en Cloudflare Pages
 
-Configurar en Cloudflare → Pages → proyecto → Settings → Environment variables:
+Configurar en Cloudflare → Pages → `fariaslabs` → Settings → Environment variables.
 
 ### Opción recomendada: Resend
 
@@ -50,30 +71,12 @@ Notas:
 LEADS_WEBHOOK_URL=https://...
 ```
 
-## Deploy recomendado
-
-El backend requiere Cloudflare Pages. GitHub Pages no ejecuta `/functions`.
-
-Pasos:
-
-1. Crear proyecto en Cloudflare Pages conectado al repo `Yeezyboyskn/landing_oscar`.
-2. Framework preset: `None`.
-3. Build command: vacío.
-4. Build output directory: `/`.
-5. Variables de entorno: configurar Resend o webhook.
-6. Dominio custom: `fariaslabs.cl`.
-7. DNS: apuntar el dominio a Cloudflare Pages.
-
-## Verificación
+## Deploy manual
 
 ```bash
-curl -i https://fariaslabs.cl/api/contact
+npx wrangler pages deploy . --project-name fariaslabs --branch main
 ```
 
-Debe responder JSON similar a:
+## Deploy desde GitHub
 
-```json
-{ "ok": true, "service": "Farias Labs contact API" }
-```
-
-Para probar envío real, usar el formulario de la landing o un POST JSON al endpoint.
+Siguiente mejora recomendada: conectar Cloudflare Pages directamente al repo `Yeezyboyskn/landing_oscar` para deploy automático en cada push a `main`.
