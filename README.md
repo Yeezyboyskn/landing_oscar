@@ -83,6 +83,22 @@ LEADS_WEBHOOK_URL=https://...
 npx wrangler pages deploy . --project-name fariaslabs --branch main
 ```
 
-## Deploy desde GitHub
+## Deploy automático
 
-Siguiente mejora recomendada: conectar Cloudflare Pages directamente al repo `Yeezyboyskn/landing_oscar` para deploy automático en cada push a `main`.
+El repo incluye GitHub Actions en `.github/workflows/deploy-cloudflare-pages.yml`.
+
+Cada push a `main` ejecuta:
+
+1. `npm ci`
+2. `npm run check`
+3. `npm run scan:security`
+4. `npx wrangler pages deploy . --project-name fariaslabs --branch main`
+
+Secrets requeridos en GitHub → Settings → Secrets and variables → Actions:
+
+```text
+CLOUDFLARE_API_TOKEN=***
+CLOUDFLARE_ACCOUNT_ID=***
+```
+
+El token debe tener permisos para desplegar Cloudflare Pages en el proyecto `fariaslabs`.

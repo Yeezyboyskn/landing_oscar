@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "wrangler pages dev . --compatibility-date=2026-05-09",
     "check": "node --check script.js && node --check functions/api/contact.js && node --check functions/_middleware.js",
-    "scan:security": "grep -RIn --exclude-dir=.git --exclude-dir=node_modules -E 'http://|ws://|localhost|127\\.0\\.0\\.1' . || true"
+    "scan:security": "node scripts/scan-security.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"

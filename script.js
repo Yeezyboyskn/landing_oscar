@@ -5,7 +5,9 @@ const leadForm = document.querySelector('#lead-form');
 const formNote = document.querySelector('#form-note');
 const contactEndpoint = '/api/contact';
 
-year.textContent = new Date().getFullYear();
+if (year) {
+  year.textContent = new Date().getFullYear();
+}
 
 menuButton?.addEventListener('click', () => {
   const isOpen = navLinks.classList.toggle('open');
@@ -42,6 +44,11 @@ leadForm?.addEventListener('submit', async (event) => {
     source: window.location.href,
     _honey: data.get('_honey')?.toString().trim()
   };
+
+  if (!submitButton) {
+    setFormState('error', 'No se encontró el botón de envío. Escríbenos a contacto@fariaslabs.cl.');
+    return;
+  }
 
   try {
     submitButton.disabled = true;
