@@ -13,24 +13,30 @@ Landing page oficial de Farias Labs con formulario de leads y backend serverless
 
 ## Estado actual
 
-El frontend y la API ya están desplegados en Cloudflare Pages.
+El frontend, la API y el formulario de contacto ya están desplegados en Cloudflare Pages.
 
-Verificación:
+Verificación rápida:
 
 ```bash
 curl -i https://fariaslabs.cl/api/contact
+curl -i -X POST https://fariaslabs.cl/api/contact \
+  -H 'content-type: application/json' \
+  --data '{"name":"Test","email":"test@example.com","company":"Demo","service":"Automatización","urgency":"Esta semana","message":"Mensaje de prueba con detalle suficiente."}'
 ```
 
-Debe responder:
+`GET /api/contact` debe responder:
 
 ```json
 { "ok": true, "service": "Farias Labs contact API" }
 ```
 
-Para que el formulario envíe correos reales falta configurar un proveedor de salida:
+Un `POST` válido debe responder:
 
-- Recomendado: Resend (`RESEND_API_KEY`).
-- Alternativo: webhook (`LEADS_WEBHOOK_URL`).
+```json
+{ "ok": true, "message": "Solicitud enviada correctamente." }
+```
+
+El envío real está configurado con Resend mediante `RESEND_API_KEY`. `www.fariaslabs.cl` redirige de forma canónica a `fariaslabs.cl` vía middleware de Cloudflare Pages.
 
 ## Desarrollo local
 
@@ -63,7 +69,7 @@ CONTACT_FROM=Farias Labs <contacto@fariaslabs.cl>
 Notas:
 
 - `CONTACT_FROM` debe usar un dominio verificado por Resend para producción.
-- Si Resend todavía no está configurado, el endpoint responderá 503 explicando que falta configuración.
+- Si Resend no está configurado, el endpoint responde 503 explicando que falta configuración.
 
 ### Alternativa: webhook
 
