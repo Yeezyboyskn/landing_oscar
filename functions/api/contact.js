@@ -3,7 +3,13 @@ const json = (payload, status = 200) =>
     status,
     headers: {
       'content-type': 'application/json; charset=utf-8',
-      'cache-control': 'no-store'
+      'cache-control': 'no-store',
+      'content-security-policy': "default-src 'none'; frame-ancestors 'none'",
+      'permissions-policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
+      'referrer-policy': 'no-referrer',
+      'strict-transport-security': 'max-age=31536000; includeSubDomains',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'DENY'
     }
   });
 
@@ -23,6 +29,7 @@ const escapeHtml = (value) =>
     .replaceAll("'", '&#039;');
 
 const isEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+const maxRequestBytes = 20 * 1024;
 
 const buildLead = (body) => ({
   name: clean(body.name ?? body.nombre, 120),
@@ -100,8 +107,7 @@ const sendWithResend = async (env, lead) => {
   });
 
   if (!response.ok) {
-    const detail = await response.text();
-    throw new Error(`Resend error ${response.status}: ${detail}`);
+    throw new Error(`Resend request failed with status ${response.status}.`);
   }
 
   return response.json();
@@ -115,7 +121,7 @@ const sendToWebhook = async (env, lead) => {
   });
 
   if (!response.ok) {
-    throw new Error(`Webhook error ${response.status}: ${await response.text()}`);
+    throw new Error(`Webhook request failed with status ${response.status}.`);
   }
 };
 
@@ -125,12 +131,28 @@ export async function onRequestOptions() {
 
 export async function onRequestPost({ request, env }) {
   try {
-    const contentType = request.headers.get('content-type') || '';
-    if (!contentType.includes('application/json')) {
+    const declaredLength = Number(request.headers.get('content-length') || 0);
+    if (declaredLength > maxRequestBytes) {
+      return json({ ok: false, error: 'Solicitud demasiado grande.' }, 413);
+    }
+
+    const contentType = (request.headers.get('content-type') || '').split(';', 1)[0].trim().toLowerCase();
+    if (contentType !== 'application/json') {
       return json({ ok: false, error: 'Content-Type debe ser application/json.' }, 415);
     }
 
-    const body = await request.json();
+    const rawBody = await request.text();
+    if (new TextEncoder().encode(rawBody).byteLength > maxRequestBytes) {
+      return json({ ok: false, error: 'Solicitud demasiado grande.' }, 413);
+    }
+
+    let body;
+    try {
+      body = JSON.parse(rawBody);
+    } catch {
+      return json({ ok: false, error: 'JSON inválido.' }, 400);
+    }
+
     const lead = buildLead(body);
     const validationError = validateLead(lead);
 
