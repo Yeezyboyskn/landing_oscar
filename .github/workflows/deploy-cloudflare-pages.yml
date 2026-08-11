@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 concurrency:
@@ -18,10 +21,15 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Scan repository and Git history
+        run: npm run scan:security
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
           cache: npm
@@ -32,10 +40,11 @@ jobs:
       - name: Validate source
         run: npm run check
 
-      - name: Scan for insecure local references
-        run: npm run scan:security
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
 
       - name: Deploy to Cloudflare Pages
+        if: github.event_name != 'pull_request'
         run: npx wrangler pages deploy . --project-name fariaslabs --branch main
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
