@@ -1,10 +1,11 @@
-# Farias Labs Landing
+# Farias Labs Website
 
-Landing page oficial de Farias Labs con formulario de leads y backend serverless.
+Sitio multipágina oficial de Farias Labs con servicios, formulario de diagnóstico y backend serverless.
 
 ## Arquitectura
 
-- Frontend estático: HTML/CSS/JS.
+- Frontend estático multipágina: HTML/CSS/JS.
+- Generador de páginas: `scripts/generate-site.mjs`.
 - Backend: Cloudflare Pages Functions.
 - Endpoint de contacto: `POST /api/contact`.
 - Deploy actual: Cloudflare Pages project `fariaslabs`.
@@ -42,9 +43,12 @@ El envío real está configurado con Resend mediante `RESEND_API_KEY`. `www.fari
 
 ```bash
 npm install
+npm run build
 npm run check
 npm run dev
 ```
+
+`npm run build` genera Inicio, Servicios, las seis páginas individuales, Nosotros, Contacto, Privacidad, 404 y `sitemap.xml`. Los HTML generados se mantienen en el repositorio para que Cloudflare Pages pueda servirlos directamente.
 
 Para probar el backend local, copia `.env.example` a `.dev.vars` y completa variables reales.
 
@@ -89,10 +93,11 @@ El repo incluye GitHub Actions en `.github/workflows/deploy-cloudflare-pages.yml
 
 Cada push a `main` ejecuta:
 
-1. `npm ci`
-2. `npm run check`
-3. `npm run scan:security`
-4. `npx wrangler pages deploy . --project-name fariaslabs --branch main`
+1. `npm run scan:security` sobre archivos e historial Git.
+2. `npm ci`.
+3. `npm run check` (incluye generación y validación de rutas, SEO y enlaces).
+4. `npm audit --audit-level=high`.
+5. `npx wrangler pages deploy . --project-name fariaslabs --branch main`.
 
 Secrets requeridos en GitHub → Settings → Secrets and variables → Actions:
 

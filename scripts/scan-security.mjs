@@ -28,7 +28,8 @@ const secretRules = [
 
 const insecurePattern = /(?:http:\/\/|ws:\/\/|localhost|127\.0\.0\.1)/g;
 const allowedInsecure = new Map([
-  ['sitemap.xml', new Set(['http://www.sitemaps.org/schemas/sitemap/0.9'])]
+  ['sitemap.xml', new Set(['http://www.sitemaps.org/schemas/sitemap/0.9'])],
+  ['scripts/generate-site.mjs', new Set(['http://www.sitemaps.org/schemas/sitemap/0.9'])]
 ]);
 const obviousPlaceholder = /(?:example|placeholder|dummy|sample|xxxx|your[_-]|<[^>]+>|\*{3,}|\$\{\{|process\.env|env\.|secrets\.)/i;
 
@@ -40,6 +41,7 @@ function addFinding(scope, source, line, rule) {
 
 function scanText(text, source, scope) {
   const normalizedSource = normalizePath(source);
+  if (/\.(?:png|jpe?g|gif|webp|ico|pdf|woff2?)(?:\s@|$)/i.test(normalizedSource)) return;
 
   if (normalizedSource !== 'scripts/scan-security.mjs') {
     for (const [rule, pattern] of secretRules) {
