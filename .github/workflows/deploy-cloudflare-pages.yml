@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 concurrency:
@@ -41,6 +44,7 @@ jobs:
         run: npm audit --audit-level=high
 
       - name: Deploy to Cloudflare Pages
+        if: github.event_name != 'pull_request'
         run: npx wrangler pages deploy . --project-name fariaslabs --branch main
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
