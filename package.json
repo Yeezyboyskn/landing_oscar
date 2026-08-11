@@ -4,8 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "node scripts/generate-site.mjs",
     "dev": "wrangler pages dev . --compatibility-date=2026-05-09",
-    "check": "node --check script.js && node --check functions/api/contact.js && node --check functions/_middleware.js",
+    "check": "node --check script.js && node --check functions/api/contact.js && node --check functions/_middleware.js && node --check scripts/generate-site.mjs && node --check scripts/validate-site.mjs && npm run build && npm run validate:site",
+    "validate:site": "node scripts/validate-site.mjs",
     "scan:security": "node scripts/scan-security.mjs"
   },
   "devDependencies": {
