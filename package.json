@@ -11,6 +11,6 @@
     "scan:security": "node scripts/scan-security.mjs"
   },
   "devDependencies": {
-    "wrangler": "^4.0.0"
+    "wrangler": "^4.151.1"
   }
 }
